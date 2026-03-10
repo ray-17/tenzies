@@ -98,7 +98,7 @@ button{
 }
 
 .dice button:hover{
-  background-color: #59E391;
+  transform: scale(1.05);
 }
 
 button.roll {
@@ -133,4 +133,20 @@ button.roll {
   display:flex;
   justify-content:center;
   align-items:center;
+}
+
+.timer{
+  position: relative;
+  right: 50%;
+  margin-top: 8px;
+  color: #0B2434;
+  font-weight: bold;
+}
+
+.roll-count{
+  position: relative;
+  left: 50%;
+  margin-top: 26%;
+  font-weight: bold;
+  color: #0B2434;
 }

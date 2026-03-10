@@ -16,7 +16,9 @@ export default function App() {
         }))
   }
   const [dieState, setDieState] = useState(() => generateAllNewDice())
+  const [count, setCount] = useState(0)
   const buttonRef = useRef(null)
+
 
 
 
@@ -24,11 +26,11 @@ export default function App() {
   const gameWon = dieState.every(die => die.isHeld) &&
     dieState.every(die => die.value === dieState[0].value)
 
-     useEffect(() => {
-    if(gameWon){
+  useEffect(() => {
+    if (gameWon) {
       buttonRef.current.focus()
     }
-  },[gameWon])
+  }, [gameWon])
 
   function hold(id) {
     setDieState(prev => prev.map(item => {
@@ -40,6 +42,8 @@ export default function App() {
     setDieState(prev => prev.map(item => {
       return item.isHeld !== true ? { ...item, value: Math.ceil(Math.random() * 6) } : item
     }))
+
+    setCount(prev => prev + 1)
   }
 
   const diceElements = dieState.map(dice =>
@@ -50,22 +54,23 @@ export default function App() {
       hold={hold}
       id={dice.id} />)
 
-  function newGame(){
+  function newGame() {
     setDieState(generateAllNewDice)
+    setCount(0)
   }
 
- 
 
-  
+
 
   return (
     <main>
-      {gameWon && <Confetti/>}
+      {gameWon && <Confetti />}
       <div aria-live="polite" className="sr-only">
-                {gameWon && <p>Congratulations! You won! Press "New Game" to start again.</p>}
-            </div>
+        {gameWon && <p>Congratulations! You won! Press "New Game" to start again.</p>}
+      </div>
       <div className="container">
         <div className="game-info">
+          <div className="timer">Timer: 00:00</div>
           <span className="title">Tenzies</span>
           <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
           <div className="dice">
@@ -74,7 +79,9 @@ export default function App() {
 
           <button
             ref={buttonRef}
-            onClick={() => {gameWon ? newGame() : reRoll()}} className="roll">{gameWon ? "New Game" : "Roll"}</button>
+            onClick={() => { gameWon ? newGame() : reRoll() }} className="roll">{gameWon ? "New Game" : "Roll"}
+          </button>
+          <div className="roll-count">Roll Count: {count}</div>
         </div>
       </div>
     </main>
