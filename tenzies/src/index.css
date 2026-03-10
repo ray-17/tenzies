@@ -84,6 +84,17 @@ button{
   font-size: 20.59px;
   font-weight: bold;
   margin-top: 10px;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  gap: 3px;
+}
+
+.pip{
+  margin:auto;
+  background-color: red;
+  border-radius: 50%;
+  height: 7px;
+  width: 7px;
 }
 
 .dice button:hover{
